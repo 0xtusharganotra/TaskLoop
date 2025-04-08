@@ -3,7 +3,8 @@ const JWT = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const JWT_SECRET = process.env.JWT_SECRET;
 const {z} = require('zod');
-const { UserModel } = require('../../course selling app/db');
+const { UserModel , TaskModel } = require('../db/db');
+const { Userauth } = require('../auth/userauth')
 
 const UserRoute = Router();
 
@@ -51,8 +52,8 @@ catch(e){
 })
 
 UserRoute.post('./signin' , async function(req,res){
-    const email = req.body;
-    const password = req.body;
+    const email = req.body.email;
+    const password = req.body.password;
 
     const user = await UserModel.findOne({email});
 
@@ -64,13 +65,14 @@ UserRoute.post('./signin' , async function(req,res){
     else{
         const pass = await bcrypt.compare(password , user.password);
         if(!pass){
-            res.status(401).json({
+           return res.status(401).json({
                 message : "Wrong Password"
             })
+
         }
         else{
-            const token = JWT.create( {
-                id : user_Id.toString()
+            const token = JWT.sign( {
+                id : user._id.toString()
             } , JWT_SECRET);
 
             res.status(201).json({
@@ -80,6 +82,25 @@ UserRoute.post('./signin' , async function(req,res){
         }
     }
 })
+
+UserRoute.get('/tasks', Userauth , async function(req,res){
+const id = req.userid;
+try{
+const tasks = await TaskModel.find({ UserId : id});
+
+res.status(201).json({
+    message : "All user tasks recieved succesfully",
+    tasks : tasks
+})
+}
+catch(e){
+    console.log(e);
+    res.status(500).json({
+        messgage : "An error occured while serving the request"
+    })
+}
+
+}) //shows all users todos
 
 module.exports = {
     UserRoute : UserRoute
