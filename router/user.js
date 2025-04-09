@@ -41,7 +41,7 @@ if(!bodyvalidated.success){
     })
 
     res.status(200).json({
-        message : "data added successfully"
+        message : "User Signed In successfully"
     })
 }
 catch(e){
@@ -51,11 +51,11 @@ catch(e){
 
 })
 
-UserRoute.post('./signin' , async function(req,res){
+UserRoute.post('/signin' , async function(req,res){
     const email = req.body.email;
     const password = req.body.password;
 
-    const user = await UserModel.findOne({email});
+    const user = await UserModel.findOne({email : email});
 
     if(!user){
         res.status(401).json({

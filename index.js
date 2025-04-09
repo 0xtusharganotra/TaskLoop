@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require('express');
 const app = express();
+const { default: mongoose } = require('mongoose');
 const port = process.env.PORT || 8000;;
 const {UserRoute} = require('./router/user');
 const {TaskRoute} = require('./router/task');
@@ -28,8 +29,10 @@ app.use('/task' , TaskRoute);
 
 
 async function main(){
-    await mongo.connect
+    await mongoose.connect(process.env.MONGOURL);
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`)
       })
 }
+
+main();
