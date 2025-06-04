@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const { string } = require('zod');
+const { string } = require('zod'); // requiring string for zod validation  
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId;
+const ObjectId = Schema.Types.ObjectId; //its not a string its a type of object
 
 const User = new Schema({
     email : {
@@ -20,8 +20,8 @@ const Task = new Schema({
     done : Boolean
 },{timestamps : true});
 
-const UserModel = mongoose.model('users' , User);
-const TaskModel = mongoose.model('tasks' , Task);
+const UserModel = mongoose.model('users' , User); //inside db collection name is users 
+const TaskModel = mongoose.model('tasks' , Task); //inside db collection name is tasks
 
 module.exports = {
     UserModel : UserModel,
