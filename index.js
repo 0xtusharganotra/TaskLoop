@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config(); //has to be added only once inside index,js and this can be used in all files
 
 const express = require('express');
 const app = express();
@@ -29,7 +29,7 @@ app.use('/task' , TaskRoute);
 
 
 async function main(){
-    await mongoose.connect(process.env.MONGOURL);
+    await mongoose.connect(process.env.MONGOURL); //PROCESS.ENV IS STANDARD IF YOU WANT TO ACCESS VARIABLES INSIDE ENV FILES
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`)
       })
