@@ -15,7 +15,7 @@ const User = new Schema({
 const Task = new Schema({
     title : String,
     description : String,
-    UserId : { type: ObjectId, ref: 'User' },
+    UserId : { type: ObjectId, ref: 'User' }, // in mongoose we can give ref to object id basically creating relation between tables using ref
     status : String,
     done : Boolean
 },{timestamps : true});

@@ -2,11 +2,11 @@ require("dotenv").config(); //has to be added only once inside index,js and this
 
 const express = require('express');
 const app = express();
-const { default: mongoose } = require('mongoose');
+const { default: mongoose } = require('mongoose'); // requiring mongoose 
 const port = process.env.PORT || 8000;;
 const {UserRoute} = require('./router/user');
 const {TaskRoute} = require('./router/task');
-const cors = require('cors');
+const cors = require('cors'); //Not an internal module so have install it also using npm
 const path = require('path');
 
 
@@ -19,10 +19,16 @@ app.use(express.urlencoded({extended : false})); // this basically alows urls to
 
 
 app.get('/', (req, res) => {
-  res.status(201).json({
-    message : "Welcome to taskloop app"
-  })
+  res.sendFile(__dirname+"/public/index.html");
 })
+app.get('/signup', (req, res) => {
+    res.sendFile(__dirname + '/public/signup.html')
+  })
+  app.get('/signin', (req, res) => {
+    res.sendFile(__dirname + '/public/signin.html')
+  })
+
+  
 
 app.use('/user' , UserRoute);
 app.use('/task' , TaskRoute);

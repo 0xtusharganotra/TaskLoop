@@ -1,3 +1,4 @@
+// This is how express router work 
 const {Router} = require('express')
 const JWT = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -41,7 +42,7 @@ if(!bodyvalidated.success){
     })
 
     res.status(200).json({
-        message : "User Signed In successfully"
+        message : "Signed Up successfully"
     })
 }
 catch(e){
@@ -63,7 +64,7 @@ UserRoute.post('/signin' , async function(req,res){
         });
     }
     else{
-        const pass = await bcrypt.compare(password , user.password);
+        const pass = await bcrypt.compare(password , user.password); // this is done to basically check if password is correct or not so 
         if(!pass){
            return res.status(401).json({
                 message : "Wrong Password"
@@ -77,10 +78,16 @@ UserRoute.post('/signin' , async function(req,res){
 
             res.status(201).json({
                 message : "User Signed In succesfully",
-                token : token
+                token : token,
+                Name : user.Name
             })
         }
     }
+})
+
+UserRoute.get('/:user', Userauth , (req,res)=>{
+
+    res.sendFile(__dirname + "/public/dashboard.html")
 })
 
 UserRoute.get('/tasks', Userauth , async function(req,res){
