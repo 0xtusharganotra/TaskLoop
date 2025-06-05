@@ -5,7 +5,7 @@ async function Userauth(req,res,next){
 const token = req.headers.token;
 
 if(!token){
-    res.status(400).json({
+    res.status(400).json({ //checking if token is present or not
         message : "No token in header"
     })
 }
