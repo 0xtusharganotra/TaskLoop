@@ -1,4 +1,4 @@
- 🌀 Task Loop
+# Task Loop
 
 **Task Loop** is a backend-powered To-Do list application that emphasizes **security**, **authentication**, and **clean API architecture**. Built with **Node.js**, **Express**, and **MongoDB**, it allows users to securely register, log in, and manage their personal tasks through a modern RESTful API—connected to a minimal Vanilla JS frontend.
 
@@ -53,13 +53,13 @@
 ## 🖼️ Screenshots
 
 ### 🏠 Home Page
-![Home](./screenshots/home.png)
+![Home](image-1.png)
 
 ### 🔐 Login Page
-![Login](./screenshots/signin.png)
+![Signin](image-2.png)
 
 ### ✅ Dashboard / Task View
-![Dashboard](./screenshots/dashboard.png)
+![Dashboard](image.png)
 
 ---
 
