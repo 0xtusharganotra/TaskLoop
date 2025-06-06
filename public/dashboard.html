@@ -208,7 +208,7 @@ VANTA.FOG({
 
         //Loading all tasks created by user 
 
-        const res = await axios.get("http://localhost:3000/user/tasks" , {
+        const res = await axios.get("https://taskloop-nl7v.onrender.com//user/tasks" , {
             headers : {
                 token : localStorage.getItem("token")
             }
@@ -236,7 +236,7 @@ VANTA.FOG({
             button.id = `btn${task._id}`
             button.innerHTML = `<i class="material-icons" style="font-size:25px; color:white;">delete</i>`
             button.addEventListener("click" , async function(){
-               try{ const result = await axios.post("http://localhost:3000/task/deletetask" , {
+               try{ const result = await axios.post("https://taskloop-nl7v.onrender.com/task/deletetask" , {
                     taskid : task._id
                 },{
                     headers : {

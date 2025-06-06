@@ -174,7 +174,7 @@ button{
         let password = document.getElementById("password").value;
         let name = document.getElementById("name").value;
 
-        const res = await axios.post('http://localhost:3000/user/signup',{
+        const res = await axios.post('https://taskloop-nl7v.onrender.com/user/signup',{
             email : username,
             password : password,
             Name : name
