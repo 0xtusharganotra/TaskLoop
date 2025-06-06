@@ -85,10 +85,6 @@ UserRoute.post('/signin' , async function(req,res){
     }
 })
 
-UserRoute.get('/:user', Userauth , (req,res)=>{
-
-    res.sendFile(__dirname + "/public/dashboard.html")
-})
 
 UserRoute.get('/tasks', Userauth , async function(req,res){
 const id = req.userid;

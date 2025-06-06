@@ -181,8 +181,9 @@ button{
             console.log(res.data);
             alert("You are signed in");
             localStorage.setItem("token",res.data.token);
+            localStorage.setItem("name" , res.data.Name);
 
-            window.location.href = `/user/${res.data.Name}`;
+            window.location.href = `/dashboard`;
 
         }
 

@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;
 
-async function Userauth(req,res,next){
+async function Userauth(req,res,next){ //Auth middleware
 const token = req.headers.token;
 
 if(!token){

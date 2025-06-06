@@ -27,7 +27,10 @@ app.get('/signup', (req, res) => {
   app.get('/signin', (req, res) => {
     res.sendFile(__dirname + '/public/signin.html')
   })
+app.get('/dashboard' , (req,res)=>{
 
+    res.sendFile(__dirname + "/public/dashboard.html")
+})
   
 
 app.use('/user' , UserRoute);

@@ -108,6 +108,11 @@ input{
     background-color: black;
     cursor: pointer;
 }
+
+
+.slide-in {
+    animation: slideIn 0.4s ease forwards;
+}
 .Todos{
     width: 100%;;
     border: none;
@@ -145,7 +150,7 @@ input{
     <div id="Navbar">
         <img class="logo" src="img\TaskLoop.png" alt="">
         <div>
-            <button class="btn-primary">Log Out</button>
+            <button class="btn-primary" onclick="logout()">Log Out</button>
         </div>
     </div>
     <div class="container">
@@ -156,15 +161,15 @@ input{
         </div>
         <div id="Main">
             <div class="Searchbox">
-                <input type="text" placeholder="Enter Task">
-                <button class="Add">Add</button>
+                <input id="title" type="text" placeholder="Enter Task">
+                <button class="Add" onclick="createtask()">Add</button>
             </div>
-            <div class="Todos">
+            <!-- <div class="Todos">
                 <p>Hey Delete this My Guy</p>
                 <button class="btb">
                 <i class="material-icons" style="font-size:25px; color:white;">delete</i>
                 </button>
-            </div>
+            </div> -->
            
             
         </div>
@@ -192,5 +197,107 @@ VANTA.FOG({
 })
 </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async function() {
+        //to fetch username from localstorage
+        document.getElementById("username").innerHTML = localStorage.getItem("name");
 
+          try { 
+        
+        
+
+        //Loading all tasks created by user 
+
+        const res = await axios.get("http://localhost:3000/user/tasks" , {
+            headers : {
+                token : localStorage.getItem("token")
+            }
+        })
+
+        console.log(res.data.tasks);
+
+        //if response comes it will be an array so we will have to create new element and keep on inserting the elements one by one 
+        let tasks = res.data.tasks;
+        for( let i = 0 ;i < tasks.length ; i++){
+            const task = tasks[i];
+            const todo = document.createElement("div");
+
+            todo.id = task._id;
+            todo.className = "Todos";
+
+            const p = document.createElement("p");
+            p.id = `p${task._id}`;
+            p.innerHTML = task.title;
+            
+
+            const button = document.createElement("button");
+
+            button.className = "btb";
+            button.id = `btn${task._id}`
+            button.innerHTML = `<i class="material-icons" style="font-size:25px; color:white;">delete</i>`
+            button.addEventListener("click" , async function(){
+               try{ const result = await axios.post("http://localhost:3000/task/deletetask" , {
+                    taskid : task._id
+                },{
+                    headers : {
+                        token : localStorage.getItem("token")
+                    }
+                })
+
+                console.log(result.data.message);
+                window.location.reload();
+            }
+                catch(e){
+                    console.log(e);
+                }
+            })
+
+            todo.append(p);
+            todo.append(button);
+
+            document.getElementById("Main").append(todo);
+
+            //  <div class="Todos"> inside id = Main
+            //     <p>Hey Delete this My Guy</p>
+            //     <button class="btb">
+            //     <i class="material-icons" style="font-size:25px; color:white;">delete</i>
+            //     </button>
+            // </div>
+        }
+}
+catch(e){
+    console.log(e);
+}
+  });
+
+
+  
+
+  function logout(){
+    window.location.href = "/";
+    localStorage.clear();
+  }
+
+  async function createtask(){
+    try{const res = await axios.post('/task/create',{
+        title : document.getElementById("title").value
+    },{
+        headers : {
+            token : localStorage.getItem("token")
+        }
+    })
+
+    alert(res.data.message);
+            console.log(res.data.message);
+window.location.reload();
+
+}
+
+
+
+    catch(e){
+        console.log(e);
+    }
+  }
+    </script>
 </html>
